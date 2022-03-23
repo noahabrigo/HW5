@@ -1,0 +1,21 @@
+library(ggplot2)
+library(maps)
+library(mapdata)
+
+states <- map_data("state")
+california <- states[states$region == "california",]
+california
+load(file="C:/Users/Noah/My Drive/2021-2022/Winter 2022/Data Visualization CSC302/Homework/HW5/wind_turbines.rda")
+CA_Turbines <- wind_turbines[wind_turbines$t_state == "CA",]
+ggplot() + geom_polygon(data = california, aes(x=long, y = lat, group = group), fill = "blue", color = "blue") + 
+  coord_fixed(1.3) + geom_point(
+  mapping = aes(x=xlong, y=ylat),
+  data = CA_Turbines,
+  stat = "identity",
+  position = "identity",
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE,
+  color = "red"
+)
+
